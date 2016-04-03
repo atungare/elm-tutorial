@@ -10067,7 +10067,8 @@ Elm.Main.make = function (_elm) {
    $Result = Elm.Result.make(_elm),
    $Signal = Elm.Signal.make(_elm);
    var _op = {};
-   var view = function (_p0) {    return $Html.text($Basics.toString(_p0));};
-   var main = A2($Signal.map,view,$Mouse.x);
-   return _elm.Main.values = {_op: _op,view: view,main: main};
+   var countSignal = A3($Signal.foldp,F2(function (_p0,counter) {    return counter + 1;}),0,$Mouse.clicks);
+   var view = function (_p1) {    return $Html.text($Basics.toString(_p1));};
+   var main = A2($Signal.map,view,countSignal);
+   return _elm.Main.values = {_op: _op,view: view,countSignal: countSignal,main: main};
 };
