@@ -6,7 +6,7 @@ import Keyboard
 
 type alias Model = { count: Int }
 
-type Action = NoOp | MouseClick | KeyPress
+type Action = NoOp | MouseClick Int | KeyPress
 
 initialModel : Model
 initialModel =
@@ -21,8 +21,8 @@ view model =
 update : Action -> Model -> Model
 update action model =
   case action of
-    MouseClick ->
-      { model | count = model.count + 1 }
+    MouseClick amt ->
+      { model | count = model.count + amt }
     KeyPress ->
       { model | count = model.count - 1 }
     _ ->
@@ -30,7 +30,7 @@ update action model =
 
 mouseClickSignal : Signal.Signal Action
 mouseClickSignal =
-  Signal.map (\_ -> MouseClick) Mouse.clicks
+  Signal.map (\_ -> MouseClick 2) Mouse.clicks
 
 keyPressSignal : Signal.Signal Action
 keyPressSignal =
